@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="../mdl/icon.css"/>
+        <link rel="stylesheet" href="../mdl/material.min.css" />
+        <script src="../mdl/material.min.js"></script>
+
+        <style>
+            h2.heading
+            {
+                font-size: 21px;
+                font-weight: 300;
+                margin: 0;
+                border-bottom: gray;
+                border-bottom-width: 2px;
+                border-bottom-style: solid;
+                width: 50%;
+            }
+
+            #save
+            {
+                position: fixed; 
+                display: block; 
+                right: 0; 
+                bottom: 0; 
+                margin-right: 40px; 
+                margin-bottom: 40px; 
+                z-index: 900;
+            }
+        </style>
+
+        <script
+            type="text/javascript">
+
+            function getSettings()
+            {
+
+            }
+
+            function saveSettings()
+            {
+
+            }
+
+        </script>
+    </head>
+
+    <body>
+
+        <div id="main" style="padding: 15px;">
+
+            <div class="mdl-card mdl-shadow--2dp" style="width: 100%; margin-bottom: 15px;">
+
+                <div class="mdl-card__title" style="background-color: rgb(244,67,54);">
+                    <h2 class="mdl-card__title-text" style="color: white;">Settings</h2>
+                </div>
+
+                <div class="mdl-card__supporting-text">
+
+                    <h2 class="heading">Device Name</h2>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 70%">
+                        <input class="mdl-textfield__input" type="text" id="name" name="name">
+                    </div>
+
+                    <h2 class="heading">SSID</h2>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 70%">
+                        <input class="mdl-textfield__input" type="text" id="ssid" name="ssid">
+                    </div>
+
+                    <h2 class="heading">Password</h2>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 70%">
+                        <input class="mdl-textfield__input" type="password" id="password" name="password">
+                    </div>
+
+                </div>
+            
+            </div>
+
+            <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary" id="save" onclick="saveSettings()">
+                <i class="material-icons">save</i>
+            </a>
+
+        </div>
+
+    </body>
+</html>
