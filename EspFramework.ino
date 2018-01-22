@@ -1,17 +1,14 @@
-#include <FS.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266NetBIOS.h>
 #include <ESP8266WebServer.h>
 #include <DNSServer.h>
 
-String ssid = "";
-String pass = "";
-String name = "";
+#include "Config.h"
+
+Config conf;
 
 ESP8266WebServer server(80);
 
-void startFlash();
-void getConfig();
 int setupWifiClient();
 void runPortal();
 void startServer();
@@ -24,11 +21,8 @@ void setup(void)
   Serial.println("");
   Serial.println("");
 
-  //Start the SPIFFS
-  startFlash();
-
-  //Get the ssid and pass
-  getConfig();
+  //Load the configuration data
+  conf.loadConfig();
 
   //Connect to the wifi
   if (setupWifiClient() != 0)
@@ -44,49 +38,15 @@ void setup(void)
 void loop() 
 {
   server.handleClient();
-  delay(10);
-}
-
-void startFlash()
-{
-  Serial.println("Starting SPIFFS");
-  if (!SPIFFS.begin())
-  {
-    Serial.println("SPIFFS mount failed");
-  }
-  else 
-  {
-    Serial.println("SPIFFS mount succesful");
-  }
-}
-
-void getConfig()
-{
-  Serial.println("Getting configuration data");
-  File conf = SPIFFS.open("/conf", "r");
-  if (!conf)
-  {
-    Serial.println("Could not read configuration");
-    return;
-  }
-
-  ssid = conf.readStringUntil('\n');
-  Serial.println("SSID: " + ssid);
-  
-  pass = conf.readStringUntil('\n');
-  Serial.println("Pass: " + pass);
-
-  name = conf.readStringUntil('\n');
-  Serial.println("Device Name: " + name);
 }
 
 int setupWifiClient()
 {
-  Serial.println("Connecting to network: " + ssid);
+  Serial.println("Connecting to network: " + conf.getSsid());
   
   WiFi.mode(WIFI_STA);
-  WiFi.hostname(name);
-  WiFi.begin(ssid.c_str(), pass.c_str());
+  WiFi.hostname(conf.getName());
+  WiFi.begin(conf.getSsid().c_str(), conf.getPass().c_str());
 
   for (int i = 0; i < 60; i++)
   {
@@ -101,13 +61,13 @@ int setupWifiClient()
 
   if (WiFi.status() != WL_CONNECTED)
   {
-    Serial.println("Couldn't connect to network: " + ssid);
+    Serial.println("Couldn't connect to network: " + conf.getSsid());
     WiFi.disconnect();
     return 1;
   }
 
-  NBNS.begin(name.c_str());
-  Serial.println("Connected to: " + ssid);
+  NBNS.begin(conf.getName().c_str());
+  Serial.println("Connected to: " + conf.getSsid());
   Serial.println("IP Address: " + WiFi.localIP().toString());
   return 0;
 }
@@ -156,7 +116,7 @@ void startServer()
 
 void sendConfig()
 {
-  String json = "{ \"ssid\": \"" + ssid + "\", \"pass\": \"" + pass + "\", \"name\": \"" + name + "\" }";
+  String json = "{ \"ssid\": \"" + conf.getSsid() + "\", \"pass\": \"" + conf.getPass() + "\", \"name\": \"" + conf.getName() + "\" }";
   server.send(200, "application/json", json);
 }
 
