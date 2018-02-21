@@ -108,13 +108,13 @@ void startServer()
   server.serveStatic("/mdl", SPIFFS, "/web/mdl", "max-age=86400");
   server.serveStatic("/ui", SPIFFS, "/web/ui");
 
-  server.on("/data/getConfig", sendConfig);
+  server.on("/data/getConfig", getConfig);
   
   server.begin();
   Serial.println("HTTP server started");
 }
 
-void sendConfig()
+void getConfig()
 {
   String json = "{ \"ssid\": \"" + conf.getSsid() + "\", \"pass\": \"" + conf.getPass() + "\", \"name\": \"" + conf.getName() + "\" }";
   server.send(200, "application/json", json);

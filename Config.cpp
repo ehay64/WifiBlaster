@@ -36,6 +36,31 @@ void Config::loadConfig()
 
     name = conf.readStringUntil('\n');
     Serial.println("Device Name: " + name);
+
+    conf.close();
+}
+
+void Config::saveConfig()
+{
+    Serial.println("Saving configuration data");
+    File conf = SPIFFS.open("/conf", "w");
+    if (!conf)
+    {
+        Serial.println("Could not open configuration");
+        return;
+    }
+
+    conf.print(ssid + "\n");
+    Serial.println("Saved SSID: " + ssid);
+
+    conf.print(pass + "\n");
+    Serial.println("Saved Pass: " + pass);
+
+    conf.print(name + "\n");
+    Serial.println("Saved Name: " + name);
+
+    conf.print("\n");
+    conf.close();
 }
 
 String Config::getSsid()
@@ -51,4 +76,19 @@ String Config::getPass()
 String Config::getName()
 {
     return name;
+}
+
+void Config::setSsid(String s)
+{
+    ssid = s;
+}
+
+void Config::setPass(String p)
+{
+    pass = p;
+}
+
+void Config::setName(String n)
+{
+    name = n;
 }

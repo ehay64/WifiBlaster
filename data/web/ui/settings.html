@@ -36,7 +36,19 @@
 
             function getSettings()
             {
-
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function()
+                {
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                        var settings = JSON.parse(this.responseText);
+                        document.getElementById("name").value = settings.name;
+                        document.getElementById("ssid").value = settings.ssid;
+                        document.getElementById("password").value = settings.password;
+                    }
+                };
+                xmlhttp.open("GET", "/data/getConfig", true);
+                xmlhttp.send();
             }
 
             function saveSettings()
@@ -47,7 +59,7 @@
         </script>
     </head>
 
-    <body>
+    <body onload="getSettings()">
 
         <div id="main" style="padding: 15px;">
 

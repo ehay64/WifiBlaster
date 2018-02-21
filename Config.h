@@ -15,10 +15,15 @@ class Config
         Config();
 
         void loadConfig();
+        void saveConfig();
 
         String getSsid();
         String getPass();
         String getName();
+
+        void setSsid(String s);
+        void setPass(String p);
+        void setName(String n);
 };
 
 #endif
