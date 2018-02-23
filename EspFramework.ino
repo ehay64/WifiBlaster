@@ -109,6 +109,7 @@ void startServer()
   server.serveStatic("/ui", SPIFFS, "/web/ui");
 
   server.on("/data/getConfig", getConfig);
+  server.on("/data/setConfig", setConfig);
   
   server.begin();
   Serial.println("HTTP server started");
@@ -120,3 +121,41 @@ void getConfig()
   server.send(200, "application/json", json);
 }
 
+void setConfig()
+{
+  Serial.println("Setting device configuration");
+
+  if (server.arg("ssid") == "")
+  {
+    Serial.println("SSID not given");
+  }
+  else
+  {
+    Serial.println("Setting new SSID: " + server.arg("ssid"));
+    conf.setSsid(server.arg("ssid"));
+  }
+
+  if (server.arg("pass") == "")
+  {
+    Serial.println("Password not given");
+  }
+  else
+  {
+    Serial.println("Setting new password: " + server.arg("pass"));
+    conf.setPass(server.arg("pass"));
+  }
+
+  if (server.arg("name") == "")
+  {
+    Serial.println("Name not given");
+  }
+  else
+  {
+    Serial.println("Setting new name: " + server.arg("name"));
+    conf.setName(server.arg("name"));
+  }
+
+  server.send(200, "text/plain");
+  conf.saveConfig();
+  Serial.println("New configuration saved");
+}

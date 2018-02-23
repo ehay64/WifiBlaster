@@ -13,7 +13,7 @@
 
             function loadFunction(func)
             {
-                document.getElementById("content").innerHTML = "<iframe id=\"frame\" style=\"height: inherit;\" src=\"\"></iframe>";
+                document.getElementById("content").innerHTML = "<iframe id=\"frame\" style=\"height: 100%;\" src=\"\"></iframe>";
                 document.getElementById("options").innerHTML = "";
 
                 switch (func)
@@ -49,8 +49,8 @@
                 </nav>
             </div>
 
-            <main class="mdl-layout__content">
-                <div class="page-content" style="height: 90vh;" id="content">
+            <main class="mdl-layout__content" style="position: relative;">
+                <div class="page-content" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" id="content">
                     <!-- Your content goes here -->
                 </div>
             </main>

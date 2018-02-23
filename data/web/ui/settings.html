@@ -53,7 +53,28 @@
 
             function saveSettings()
             {
+                var name = document.getElementById("name").value;
+                var ssid = document.getElementById("ssid").value;
+                var password = document.getElementById("password").value;
 
+                var url = "/data/setConfig?ssid=" + ssid + "&pass=" + password + "&name=" + name;
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function()
+                {
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                        var notification = document.querySelector('.mdl-js-snackbar');
+                        notification.MaterialSnackbar.showSnackbar(
+                            {
+                                message: "Settings Saved"
+                            }
+                        );
+                        getSettings();
+                    }
+                };
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
             }
 
         </script>
@@ -94,6 +115,13 @@
                 <i class="material-icons">save</i>
             </a>
 
+        </div>
+
+        <div class="mdl-snackbar mdl-js-snackbar">
+            <div class="mdl-snackbar__text">
+            </div>
+            <button type="button" class="mdl-snackbar__action">
+            </button>
         </div>
 
     </body>
