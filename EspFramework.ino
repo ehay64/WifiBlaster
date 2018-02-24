@@ -101,7 +101,12 @@ void startServer()
   server.onNotFound([]()
   {
     server.sendHeader("Location", "/", true);
-    server.send ( 302, "text/plain", "");
+    server.send (302, "text/plain", "");
+  });
+
+  server.on("/favicon.ico", []()
+  {
+    server.send(404, "text/plain", "404: Not found");
   });
   
   server.serveStatic("/", SPIFFS, "/web/index.html");
