@@ -1,2 +1,4 @@
-# EspFramework
-A simple Arduino framework for the ESP8266 to kickstart IoT projects
+# WifiBlaster
+A WiFi enabled IR blaster based on the ESP8266.
+
+This is built off the EspFramework code.
