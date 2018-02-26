@@ -21,6 +21,9 @@
                     case "settings":
                         document.getElementById('frame').src = "ui/settings.html";
                         break;
+                    case "moto":
+                        document.getElementById('frame').src = "ui/moto.html";
+                        break;
                 }
                 return false;
             }
@@ -34,7 +37,7 @@
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                     <div class="mdl-layout-spacer" id="title">
-                        ESP Framework
+                        WiFi Remote
                     </div>
                     <nav class="mdl-navigation" id="options">
                         <!-- this is where options go -->
@@ -43,8 +46,9 @@
             </header>
 
             <div class="mdl-layout__drawer">
-                <span class="mdl-layout-title">ESP</span>
+                <span class="mdl-layout-title">Remote</span>
                 <nav class="mdl-navigation" id="function">
+                    <a class="mdl-navigation__link" onclick="loadFunction('moto')">Cable Box</a>
                     <a class="mdl-navigation__link" onclick="loadFunction('settings')">Settings</a>
                 </nav>
             </div>

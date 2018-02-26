@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="../mdl/icon.css"/>
+        <link rel="stylesheet" href="../mdl/material.min.css" />
+        <script src="../mdl/material.min.js"></script>
+
+        <style>
+            h2.heading
+            {
+                font-size: 21px;
+                font-weight: 300;
+                margin: 0;
+                border-bottom: gray;
+                border-bottom-width: 2px;
+                border-bottom-style: solid;
+                width: 50%;
+            }
+
+            button.nav-button
+            {
+                margin-left: 2px;
+                margin-right: 2px;
+            }
+        </style>
+
+        <script
+            type="text/javascript">
+
+            function sendMoto(code)
+            {
+                var url = "/data/sendCode?moto=" + code;
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function()
+                {
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                        var settings = JSON.parse(this.responseText);
+                        document.getElementById("name").value = settings.name;
+                        document.getElementById("ssid").value = settings.ssid;
+                        document.getElementById("password").value = settings.password;
+                    }
+                };
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+            }
+
+        </script>
+    </head>
+
+    <body>
+
+        <div id="main" style="padding: 15px;">
+
+            <div class="mdl-card mdl-shadow--2dp" style="width: 100%; margin-bottom: 15px;">
+
+                <div class="mdl-card__title" style="background-color: rgb(244,67,54);">
+                    <h2 class="mdl-card__title-text" style="color: white;">Cable Box</h2>
+                    <div class="mdl-layout-spacer"></div>
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" onclick="sendMoto('0xAFF9')">
+                        <i class="material-icons" style="color: white;">power_settings_new</i>
+                    </button>
+                </div>
+
+                <div class="mdl-card__supporting-text" style="text-align: center">
+
+                    <div style="padding-bottom: 20px">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect nav-button" style="margin-left: 0px" onclick="sendMoto('0xF3F4')">Guide</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect nav-button" onclick="sendMoto('0xB7F4')">Exit</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect nav-button" onclick="sendMoto('0x33FA')">Info</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect nav-button" style="margin-right: 0px" onclick="sendMoto('0x67F9')">Menu</button>
+                    </div>
+
+                    <div>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" style="float: left" onclick="sendMoto('0xE3F5')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">keyboard_arrow_up</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" onclick="sendMoto('0xD3F6')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">arrow_upward</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" style="float: right" onclick="sendMoto('0xA3F3')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">keyboard_arrow_up</i>
+                        </button>
+                    </div>
+
+                    <div style="position: relative">
+                        <div style="float: left; width: 40px; line-height: 32px">Day</div>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" onclick="sendMoto('0x93F1')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">arrow_back</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" onclick="sendMoto('0x77F8')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">add</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" onclick="sendMoto('0x13F9')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">arrow_forward</i>
+                        </button>
+                        <div style="float: right; width: 40px; line-height: 32px">Page</div>
+                    </div>
+
+                    <div>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" style="float: left" onclick="sendMoto('0x63FD')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">keyboard_arrow_down</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" onclick="sendMoto('0x53FE')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">arrow_downward</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" style="float: right" onclick="sendMoto('0x23FB')">
+                            <i class="material-icons" style="color: rgba(0, 0, 0, 0.54)">keyboard_arrow_down</i>
+                        </button>
+                    </div>
+
+                </div>
+            
+            </div>
+
+        </div>
+
+    </body>
+</html>

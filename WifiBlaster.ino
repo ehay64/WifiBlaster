@@ -3,11 +3,16 @@
 #include <ESP8266WebServer.h>
 #include <DNSServer.h>
 
+#include <IRremoteESP8266.h>
+#include <IRsend.h>
+
 #include "Config.h"
 
 Config conf;
 
 ESP8266WebServer server(80);
+
+IRsend irsend(4);
 
 int setupWifiClient();
 void runPortal();
@@ -20,6 +25,9 @@ void setup(void)
   Serial.begin(115200);
   Serial.println("");
   Serial.println("");
+
+  //Start the IR transmitter
+  irsend.begin();
 
   //Load the configuration data
   conf.loadConfig();
@@ -115,6 +123,8 @@ void startServer()
 
   server.on("/data/getConfig", getConfig);
   server.on("/data/setConfig", setConfig);
+
+  server.on("/data/sendCode", sendCode);
   
   server.begin();
   Serial.println("HTTP server started");
@@ -163,4 +173,23 @@ void setConfig()
   server.send(200, "text/plain");
   conf.saveConfig();
   Serial.println("New configuration saved");
+}
+
+void sendCode()
+{
+  Serial.println("Sending IR code");
+
+  unsigned long code = 0;
+
+  if (server.arg("moto") != "")
+  {
+    code = strtoull(server.arg("moto").c_str(), NULL, 0);
+
+    Serial.print("Sending Motorola: ");
+    Serial.println(code, HEX);
+
+    irsend.sendGeneric(9000, 4500, 500, 2200, 500, 4500, 500, 30000, code, 16, 38, true, 0, 50);
+  }
+
+  server.send(200, "text/plain");
 }
