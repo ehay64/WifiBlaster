@@ -34,16 +34,6 @@
                 var url = "/data/sendCode?moto=" + code;
 
                 var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function()
-                {
-                    if (this.readyState == 4 && this.status == 200)
-                    {
-                        var settings = JSON.parse(this.responseText);
-                        document.getElementById("name").value = settings.name;
-                        document.getElementById("ssid").value = settings.ssid;
-                        document.getElementById("password").value = settings.password;
-                    }
-                };
                 xmlhttp.open("GET", url, true);
                 xmlhttp.send();
             }
