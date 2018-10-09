@@ -29,13 +29,23 @@
         <script
             type="text/javascript">
 
-            function sendMoto(code)
+            function sendCode(type, code)
             {
-                var url = "/data/sendCode?moto=" + code;
+                var url = "/data/sendCode?" + type + "=" + code;
 
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.open("GET", url, true);
                 xmlhttp.send();
+            }
+
+            function sendMoto(code)
+            {
+                sendCode("moto", code);
+            }
+
+            function sendPanasonic(code)
+            {
+                sendCode("pana", code);
             }
 
         </script>
@@ -50,7 +60,7 @@
                 <div class="mdl-card__title" style="background-color: rgb(244,67,54);">
                     <h2 class="mdl-card__title-text" style="color: white;">Cable Box</h2>
                     <div class="mdl-layout-spacer"></div>
-                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" onclick="sendMoto('0xAFF9')">
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-js-ripple-effect" onclick="sendPanasonic('0x40040100BCBD')">
                         <i class="material-icons" style="color: white;">power_settings_new</i>
                     </button>
                 </div>

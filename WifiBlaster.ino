@@ -179,16 +179,28 @@ void sendCode()
 {
   Serial.println("Sending IR code");
 
-  unsigned long code = 0;
+  uint64_t code = 0;
 
   if (server.arg("moto") != "")
   {
     code = strtoull(server.arg("moto").c_str(), NULL, 0);
 
     Serial.print("Sending Motorola: ");
-    Serial.println(code, HEX);
+    Serial.print(uint32_t(code >> 32), HEX);
+    Serial.println(uint32_t(code), HEX);
 
     irsend.sendGeneric(9000, 4500, 500, 2200, 500, 4500, 500, 30000, code, 16, 38, true, 0, 50);
+  }
+
+  if (server.arg("pana") != "")
+  {
+    code = strtoull(server.arg("pana").c_str(), NULL, 0);
+
+    Serial.print("Sending Panasonic: ");
+    Serial.print(uint32_t(code >> 32), HEX);
+    Serial.println(uint32_t(code), HEX);
+
+    irsend.sendPanasonic64(code, 48, 2);
   }
 
   server.send(200, "text/plain");
